@@ -1,4 +1,4 @@
-.PHONY: all build bash start
+.PHONY: all build bash start exec
 NAME=citadel
 AUTHOR=belooussov
 VERSION=latest
@@ -9,8 +9,11 @@ all: build
 build:
 	docker build --no-cache=false -t $(FULLDOCKERNAME) .
 
-bash:
-	docker run -it -p 443:443 --entrypoint /bin/bash $(AUTHOR)/$(NAME):latest
+start: clean
+	docker run -d --name citadel -p 443:443 $(AUTHOR)/$(NAME):latest
 
-start:
-	docker run -d -p 443:443 $(AUTHOR)/$(NAME):latest
+exec:
+	docker exec -ti citadel bash
+
+clean:
+	-docker rm -f citadel
