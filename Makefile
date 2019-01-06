@@ -14,6 +14,3 @@ bash:
 
 start:
 	docker run -d -p 443:443 $(AUTHOR)/$(NAME):latest
-
-run:
-	docker run --privileged -d -p 443:443 $(AUTHOR)/$(NAME):latest
